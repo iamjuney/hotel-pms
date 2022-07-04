@@ -5,29 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $title }} | HotelPMS</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <body>
+        <div class="h-screen flex">
+            <!-- Off-canvas menu for mobile, show/hide based on off-canvas menu state. -->
+            @include('layouts.off_canvas_menu_mobile')
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+            <!-- Static sidebar for desktop -->
+            @include('layouts.sidebar_desktop')
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+            <div class="flex-1 min-w-0 flex flex-col overflow-hidden">
+                <!-- Mobile top navigation -->
+                @include('layouts.mobile_top_navigation')
+
+                <main class="flex-1 flex overflow-hidden">
+                    {{ $slot }}
+                </main>
+            </div>
         </div>
     </body>
 </html>
